@@ -1,5 +1,13 @@
 # TodoApp
+***********************
 
+First Step => npm install 
+
+clone and run the Todos-Api from => https://github.com/esiomlink/Todos-api.git
+
+run this app whis npm start and add todo and delete todo or many todos whis the select box
+
+************************
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.4.
 
 ## Development server
