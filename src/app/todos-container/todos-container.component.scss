@@ -1,0 +1,21 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+.todos-container{
+  max-width: 50%;
+  min-width: 20rem;
+    margin: 6rem auto 0 auto;
+    border: 1px solid;
+  .app-title{
+    text-align: center;
+  }
+  .buttons{
+    border-top: 1px solid;
+    margin: 2rem;
+    display: flex;
+    justify-content: center;
+    button{
+      margin:1rem;
+    }
+  }
+}

@@ -1,0 +1,18 @@
+<mat-selection-list  #list class='todos-container'>
+  <h1 class="app-title">Todos</h1>
+  <mat-list-option 
+        *ngFor='let todo of todos' 
+        [selected]="selectedOptions.selected"
+        (click)="onAreaListControlChanged(list)" 
+        [value]="todo" 
+        class="todos-liste">
+      <app-todo [todo]='todo'></app-todo>
+  </mat-list-option>
+
+  <div class='buttons'>
+    <button mat-raised-button color="primary" (click)="openDialog()">New Todo</button>
+    <!-- <button mat-raised-button color="accent" (click)="openDialog()">Modify Selected Todo(s)</button> -->
+    <button mat-raised-button color="warn" (click)="deleteAllSelectedTodos([selectedOptions])">Delete Selected Todo(s)</button>
+
+  </div>
+</mat-selection-list>
