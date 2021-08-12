@@ -3,6 +3,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { Data } from '@angular/router';
 
 
 @Component({
@@ -10,13 +11,17 @@ import {
   templateUrl: './dialog-box.component.html',
   styleUrls: ['./dialog-box.component.scss'],
 })
-export class DialogBoxComponent implements OnInit {
+export class DialogBoxComponent implements 
+OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogBoxComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
-  onNoClick(): void {
-    this.dialogRef.close();
+    ) {}
+    todos = this.data.data
+    onNoClick(): void {
+      this.dialogRef.close();
+    }
+    ngOnInit(): void {
+
   }
-  ngOnInit(): void {}
 }

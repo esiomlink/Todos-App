@@ -1,10 +1,20 @@
-<div mat-dialog-content>
+
+<div *ngFor="let todo of todos">
+  <div mat-dialog-content>
+    <mat-form-field appearance="fill">
+      <mat-label *#elseBlock>New Todo</mat-label>
+      <input matInput [(ngModel)]="todo.name" />
+    </mat-form-field>
+  </div>
+</div>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+</div>
+
+<div mat-dialog-content *ngIf="!todos">
   <mat-form-field appearance="fill">
     <mat-label>New Todo</mat-label>
-    <input matInput [(ngModel)]="data.data">
-  </mat-form-field> 
-</div>
-<div mat-dialog-actions>
-  <button mat-button (click)="onNoClick()">No Thanks</button>
-  <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Ok</button>
+    <input matInput [(ngModel)]="data.data" />
+  </mat-form-field>
 </div>
