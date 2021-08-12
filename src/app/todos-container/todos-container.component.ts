@@ -4,6 +4,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { MatDialog } from '@angular/material/dialog';
 import { DialogBoxComponent } from '../dialog-box/dialog-box.component';
 import { throwError } from 'rxjs';
+import { TodoInfos } from '../models/todo';
 
 @Component({
   selector: 'app-todos-container',
@@ -11,40 +12,46 @@ import { throwError } from 'rxjs';
   styleUrls: ['./todos-container.component.scss'],
 })
 export class TodosContainerComponent implements OnInit {
-  todos: string[] = [];
-  todosData: string[] = [];
-  idTodo: string[] = [];
-  modifTodos: string[] = [];
+  todos: TodoInfos[] = [];
+  todosData: TodoInfos[] = [];
+  selectedOptions: any = [];
 
   constructor(private todoservice: TodoService, public dialog: MatDialog) {}
-
   ngOnInit(): void {
     this.getTodos();
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(DialogBoxComponent, {
-      data: { name: 'gfdsg' },
-    });
-    dialogRef.afterClosed().subscribe((result) => {
-      this.todosData = [result.data];
-      this.postTodo(result.data);
-    });
+  openDialog(array:[]): void {
+    if (array.length > 0) {
+      const dialogRef = this.dialog.open(DialogBoxComponent, {
+        data: { data: array },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        result.data.forEach((values:any)=>{
+          console.log(values)
+          this.updateTodo(values.id,values.name)
+        })
+      });
+    } else {
+      const dialogRef = this.dialog.open(DialogBoxComponent, {
+        data: { name: '' },
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        this.todosData = [result.data];
+        this.postTodo(result.data);
+      });
+    }
   }
-
-  selectedOptions: any = [];
   onAreaListControlChanged(list: any): void {
     this.selectedOptions = list.selectedOptions.selected.map(
-      (item: any) => item.value.id
+      (item: any) => item.value
     );
     console.log('Selected => ', this.selectedOptions);
   }
-
-  deleteAllSelectedTodos(todosArray: any[]): void {
-    [todosArray] = todosArray
-    todosArray.forEach((todoId) => this.deleteTodo(parseInt(todoId)));
+  deleteAllSelectedTodos(todosArray: any): void {
+    [todosArray] = todosArray;
+    todosArray.forEach((todoId: any) => this.deleteTodo(parseInt(todoId.id)));
   }
-
   /* API Functions */
   getTodos() {
     try {
@@ -63,7 +70,6 @@ export class TodosContainerComponent implements OnInit {
       console.log('GET_ALL_ERR => err', err);
     }
   }
-
   postTodo(name: string) {
     this.todoservice
       .postTodo(name)
@@ -73,14 +79,22 @@ export class TodosContainerComponent implements OnInit {
       )
       .subscribe(() => this.getTodos());
   }
-
   deleteTodo(id: number) {
     this.todoservice
-    .deleteTodo(id)
-    .pipe(
+      .deleteTodo(id)
+      .pipe(
         tap((data) => console.log(data)),
-        catchError((error) => (console.log(error),
-         throwError(error))))
-         .subscribe(() => this.getTodos());
+        catchError((error) => (console.log(error), throwError(error)))
+      )
+      .subscribe(() => this.getTodos());
+  }
+  updateTodo(id: number, name: string) {
+    this.todoservice
+      .updateTodo(id, name)
+      .pipe(
+        tap((data) => console.log(data)),
+        catchError((error) => (console.log(error), throwError(error)))
+      )
+      .subscribe(() => this.getTodos());
   }
 }

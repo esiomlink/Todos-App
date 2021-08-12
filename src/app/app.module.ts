@@ -12,11 +12,17 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { DialogBoxComponent } from './dialog-box/dialog-box.component';
+import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 @NgModule({
-  declarations: [AppComponent, TodosContainerComponent, TodoComponent, DialogBoxComponent],
+  declarations: [
+    AppComponent,
+    TodosContainerComponent,
+    TodoComponent,
+    DialogBoxComponent,
+  ],
   entryComponents: [DialogBoxComponent],
   imports: [
     FormsModule,
@@ -30,6 +36,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     ReactiveFormsModule,
     MatFormFieldModule,
+    MatInputModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

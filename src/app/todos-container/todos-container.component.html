@@ -10,8 +10,8 @@
   </mat-list-option>
 
   <div class='buttons'>
-    <button mat-raised-button color="primary" (click)="openDialog()">New Todo</button>
-    <!-- <button mat-raised-button color="accent" (click)="openDialog()">Modify Selected Todo(s)</button> -->
+    <button mat-raised-button color="primary" (click)="openDialog(selectedOptions)">New Todo</button>
+     <button mat-raised-button color="accent" (click)="openDialog(selectedOptions)">Modify Selected Todo(s)</button>
     <button mat-raised-button color="warn" (click)="deleteAllSelectedTodos([selectedOptions])">Delete Selected Todo(s)</button>
 
   </div>
